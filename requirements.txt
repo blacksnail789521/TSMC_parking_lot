@@ -1,0 +1,11 @@
+fastapi==0.89.0
+google-api-core==2.11.0
+google-auth==2.15.0
+google-cloud-core==2.3.2
+google-cloud-storage==2.7.0
+google-cloud-vision==3.2.0
+PyMySQL==1.0.2
+SQLAlchemy==1.4.46
+uvicorn==0.20.0
+pydantic==1.10.4
+cloud-sql-python-connector==1.0.0

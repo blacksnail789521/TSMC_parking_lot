@@ -1,0 +1,7 @@
+read_bucket/
+images/
+*.png
+*.json
+*.pyc
+test*
+*copy*
