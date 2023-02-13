@@ -1,0 +1,218 @@
+
+<html>
+<head>
+	<title>TSMC Parking System</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style>
+    /* input[type="submit"]{padding:5px 15px; background:#ccc; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; }
+	
+	input[type="button"]{padding:5px 15px; background:#ccc; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; }
+    
+    input[type="text"]{padding:5px 150px; border:2px black solid;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; } */
+	
+	</style>
+</head>
+<body bgcolor="#FFFAFA">
+	
+	<!-- <h1 align="center" style="margin-top: 25px">登入</h1>
+	<h2 align='center'><img style="margin-top: 15px" src="FOOD.gif" /></h2> -->
+	<!-- <form action="signin_account.php" method="post">	 -->
+
+	<h1><th>Parking History：</th>
+	<!-- <input  type="radio" name="identity" value='1'>管理者
+	<input  type="radio" name="identity" value='0' >消費者</td></h3> -->
+
+	<!-- <h3 align='center'><th>帳號：</th> -->
+	<!-- <input type="text" name="account" /></h3> -->
+
+	<!-- <h3 align='center'><th>密碼：</th> -->
+	<!-- <input type="text" name="password"  /></h3> -->
+
+	<!-- <h3 align='center'> -->
+		<!-- <input type="submit" value="登入"/> -->
+		<!-- <input type ="button" onclick="javascript:location.href='register_new.html'" value="我還沒註冊"> -->
+		<!-- </input></h3> -->
+	<!-- </form> -->
+	<script>
+	var id = location.search.replace(/[^\d]/g,"");
+	id = parseInt(id)
+	var tmp = ""
+	if (id<10)
+		tmp = "00"
+		else if (id<=99)
+			tmp = "0"
+		else 
+			tmp = ""
+	tmp = tmp + id
+	// alert(id);
+	// if (id%10>=0)
+	// 	id = "0"+id
+	/*
+	var dataUrl = "http://34.80.11.147:8000/parking/A-" + tmp
+	var xhr = new XMLHttpRequest()
+	xhr.open('GET', dataUrl, true)
+	xhr.send()
+
+	var list = []
+	let enter_time = []
+	xhr.onload = function(){
+		var data = JSON.parse(this.responseText);
+		// console.log(data["parking_history"].length)
+		for (var i= 0; i < data["parking_history"].length; i++){
+			var a1 = data["parking_history"][i]["license_plate"]
+			var a2 = "" + data["parking_history"][i]["entry_time"]		
+			var a3 = "" + data["parking_history"][i]["exit_time"]
+			var all = "license_plate: " + a1 +", entry_time: "+ a2 + ", exit_time: " + a3 
+			list.push(all)
+			enter_time.push(a2)
+		}
+	}
+	// console.log("#1")
+	// console.log(enter_time.length)
+	// console.log("#2")
+	// console.log(enter_time)
+	// console.log(enter_time[0])
+	// console.log("#3")
+	for(var i =0;i < list.length;i++){
+		var dataUrl1 = "http://34.80.11.147:8000/image/A-" + tmp +'/'+enter_time[i] +'/vision' 
+		var xhr1 = new XMLHttpRequest()
+		xhr1.open('GET', dataUrl, true)
+		xhr1.send()
+		xhr1.onload = function(){
+			var data = JSON.parse(this.responseText);
+			console.log(data["vision_result"])
+			list[i] = list[i] + "vision_result" + data["vision_result"]
+		}
+	}
+	*/
+	var dataUrl = "http://34.80.11.147:8000/parking/A-" + tmp;
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", dataUrl, true);
+	xhr.send();
+
+	var list_ = [];
+	var enter_time = [];
+	xhr.onload = function() {
+		var data = JSON.parse(this.responseText);
+		if (data["parking_history"].length==0){
+			alert("No Parking History!")
+			history.go(-1)
+		} else{
+			for (var i = 0; i < data["parking_history"].length; i++) {
+				var a1 = data["parking_history"][i]["license_plate"];
+				var a2 = "" + data["parking_history"][i]["entry_time"];
+				var a3 = "" + data["parking_history"][i]["exit_time"];
+				var all_ = "license_plate: " + a1 + ", entry_time: " + a2 + ", exit_time: " + a3;
+				list_.push(all_);
+				enter_time.push(a2);
+				var element = document.createElement("p");
+				element.innerHTML = all_;
+				document.body.appendChild(element);
+				// var dataUrl = "http://34.80.11.147:8000/license_time/" + a1 + "/" + time //7C6856
+			}
+		}
+	};
+
+	// var dataUrl = "http://34.80.11.147:8000/license_time/" + license_plate + "/" + time //7C6856
+    //             var xhr = new XMLHttpRequest()
+    //             xhr.open('GET', dataUrl, true)
+    //             xhr.send()
+    //             xhr.onload = function(){
+	// 				var data = JSON.parse(this.responseText);
+    //                 console.log(data)
+    //                 if(data['parking_number']==null){
+    //                     alert('Your car is not in our parking lot! Return to the previous page...')
+    //                     history.go(-1)
+    //                 }
+    //                 else{
+    //                     entry_time_camera = data["entry_time_camera"]
+    //                     var img = document.createElement("img")
+    //                     img.src = "http://34.80.11.147:8000/image/" + data['parking_number'] + "/" + entry_time_camera
+    //                     document.write("<h2>Your license plate is: "+license_plate+"</h2>");
+    //                     document.write("<h2>Location:")
+    //                     document.write(data['parking_number']+"</h2>")
+    //                     document.write("<h2>Image of your car</h2><br>")
+    //                     document.body.appendChild(img)
+    //                 }
+	// 			}
+
+	// var dataUrl1 = "http://34.80.11.147:8000/parking/A-" + tmp;
+	// var xhr1 = new XMLHttpRequest();
+	// xhr1.open("GET", dataUrl, true);
+	// xhr1.send();
+	// xhr.onload = function() {
+	// 	var data = JSON.parse(this.responseText);
+	// 	if (data["parking_history"].length==0){
+	// 		alert("No Parking History!")
+	// 		history.go(-1)
+	// 	} else{
+	// 		for (var i = 0; i < data["parking_history"].length; i++) {
+	// 			var a1 = data["parking_history"][i]["license_plate"];
+	// 			var a2 = "" + data["parking_history"][i]["entry_time"];
+	// 			var a3 = "" + data["parking_history"][i]["exit_time"];
+	// 			var all_ = "license_plate: " + a1 + ", entry_time: " + a2 + ", exit_time: " + a3;
+	// 			list_.push(all_);
+	// 			enter_time.push(a2);
+	// 			var element = document.createElement("p");
+	// 			element.innerHTML = all_;
+	// 			document.body.appendChild(element);
+	// 		}
+	// 	}
+	// };
+
+	// for (var i = 0; i < list_.length; i++) {
+	// 	var item = list_[i];	
+	// 	var element = document.createElement("p");
+	// 	element.innerHTML = item;
+	// 	console.log(item)
+	// 	document.body.appendChild(element);
+	// }
+	
+	
+	window.onload = function() {
+	var buttonsContainer = document.createElement("div");
+	var button = document.createElement("button");
+	button.innerHTML = 'return';
+	button.style.verticalAlign = "center";
+	// button.style.width = "60px";
+	// button.style.height = "80px";
+		// button.style.backgroundColor = "greenyellow";
+	button.onclick = function() {
+		// checkButton(this.id);
+		window.location.href="index.html";
+		};
+	buttonsContainer.appendChild(button);
+	document.body.appendChild(buttonsContainer);
+	}	
+
+	// window.onload = function() {
+	// var buttonsContainer = document.createElement("div");
+	// var button = document.createElement("button");
+	// button.innerHTML = '老婆請用';
+	// button.style.verticalAlign = "center";
+	// // button.style.width = "60px";
+	// // button.style.height = "80px";
+	// 	// button.style.backgroundColor = "greenyellow";
+	// button.onclick = function() {
+	// 	// checkButton(this.id);
+	// 	window.location.href="register.html";
+	// 	};
+	// buttonsContainer.appendChild(button);
+	// document.body.appendChild(buttonsContainer);
+	// }	
+
+
+	</script>
+	
+	
+</body>
+</html>

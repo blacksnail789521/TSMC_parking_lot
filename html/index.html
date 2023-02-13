@@ -1,0 +1,155 @@
+
+<html>
+<head>
+	<title>TSMC Parking System</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+<style>
+    input[type="submit"]{padding:8px 15px; background:#ccc; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; }
+    
+    input[type="text"]{padding:8px 280px; border:2px black solid;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; }
+	
+	.demo{
+	padding-top: 20px;
+	text-align: center
+	}
+</style>
+</head>
+<body bgcolor="#FFFAFA">
+	<h1 align='center'>TSMC Parking System</h1>
+	<form align='center' name="find_car" method="get" action="find_car.html">
+		<input type="text" name='license_plate' placeholder="Input your license plate" >
+		<input type="submit" value="Find car">
+	</form>
+	</div>
+	<br>
+	
+	<!-- <table style="border:3px #cccccc solid;" cellpadding="0" border='1' align="center">
+		<tr> -->
+		<form align='center'>
+		<input type="button" value ="Black list", onclick = "javascript:location.href='register_new.html'" ><br>
+		</form>
+			<script>
+				function checkButton(id) {
+				    console.log("Button clicked: " + id);
+				}
+				window.onload = function() {
+					var buttonsContainer = document.createElement("div");
+					for (var i = 1; i <= 100; i++) {
+						var tmp =""
+						if (i<10)
+							tmp = "00"
+						else if (i<=99)
+							tmp = "0"
+						else 
+							tmp = ""
+						tmp = tmp + i
+
+						let button = document.createElement("button");
+						button.id = "button_" + i;
+						button.innerHTML = "A-"+tmp;
+						// console.log(tmp);
+						// console.log(i);
+						button.style.width = "60px";
+						button.style.height = "80px";
+						// var data = JSON.parse(this.responseText);
+						
+						var dataUrl = "http://34.80.11.147:8000/parking/A-" + tmp
+						var xhr = new XMLHttpRequest()
+						xhr.open('GET', dataUrl, true)
+						xhr.send()
+						xhr.onload = function(){
+							var data = JSON.parse(this.responseText);
+							// console.log(data['color'])
+							if (data['color'] != "red")
+								button.style.backgroundColor = "greenyellow";
+							else
+								button.style.backgroundColor = "red";							
+						}
+
+						// button.style.backgroundColor = "greenyellow";
+						button.onclick = function() {
+							checkButton(this.id);
+							
+							window.location.href="signin_new.html?id="+this.id+"";
+						};
+						buttonsContainer.appendChild(button);
+						buttonsContainer.style.textAlign = "center";
+						if (i % 20 == 0) {
+							let newContainer = document.createElement("div");
+							newContainer.appendChild(buttonsContainer);
+							document.body.appendChild(newContainer);
+							buttonsContainer = document.createElement("div");
+    					}
+					}	
+					document.body.appendChild(buttonsContainer);
+				}
+				
+			</script>
+			<!-- <script language="javascript">
+				for(var i=0; i<20; i++){					
+				a = 0;
+				if (a == 1)
+					document.write('<td><button type="submit" id=i style="width:60px;height:80px;background-color:greenyellow"></td>');
+				else
+					document.write('<td><button type="submit" id=i style="width:60px;height:80px;background-color:red"></td>');
+					console.log(document)
+				}
+			</script>
+		</tr>
+		<tr>
+			<script language="javascript">
+				for(var i=20; i<40; i++){					
+				a = 0;
+				if (a == 1)
+					document.write('<td><button type="submit" style="width:60px;height:80px;background-color:greenyellow"></td>');
+				else
+					document.write('<td><button type="submit" style="width:60px;height:80px;background-color:red"></td>');
+				}
+			</script>
+		</tr>
+		<tr>
+			<script language="javascript">
+				for(var i=40; i<60; i++){					
+				a = 0;
+				if (a == 1)
+					document.write('<td><button type="submit" style="width:60px;height:80px;background-color:greenyellow"></td>');
+				else
+					document.write('<td><button type="submit" style="width:60px;height:80px;background-color:red"></td>');
+				}
+			</script>
+		</tr>
+		<tr>
+			<script language="javascript">
+				for(var i=60; i<80; i++){					
+				a = 0;
+				if (a == 1)
+					document.write('<td><button type="submit" style="width:60px;height:80px;background-color:greenyellow"></td>');
+				else
+					document.write('<td><button type="submit" style="width:60px;height:80px;background-color:red"></td>');
+				}
+			</script>
+		</tr>
+		<tr>
+			<script language="javascript">
+				for(var i=80; i<100; i++){					
+				a = 0;
+				if (a == 1)
+					document.write('<td><button type="submit" style="width:60px;height:80px;background-color:greenyellow"></td>');
+				else
+					document.write('<td><button type="submit" style="width:60px;height:80px;background-color:red"></td>');
+				}
+			</script> -->
+		<!-- </tr>
+	</table> -->
+</body>
+

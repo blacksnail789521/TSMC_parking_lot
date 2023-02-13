@@ -1,0 +1,61 @@
+
+<html>
+<head>
+	<title>Black list</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style>
+    input[type="submit"]{padding:5px 15px; background:#ccc; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; }
+	
+	input[type="button"]{padding:5px 15px; background:#ccc; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; }
+    
+    input[type="text"]{padding:5px 150px; border:2px black solid;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; }
+	
+	</style>
+</head>
+<body bgcolor="#FFFAFA">
+
+	<h1  style="margin-top: 25px">Black list</h1>
+	
+	<input type="button" value ="return", onclick = "javascript:location.href='index.html'" ><br>
+	
+	<script>	
+		var list_ = []
+		var enter_time =[]
+		var dataUrl = "http://34.80.11.147:8000/query/blacklist"
+		var xhr = new XMLHttpRequest()
+		xhr.open('GET', dataUrl, true)
+		xhr.send()
+		xhr.onload = function(){
+			var data = JSON.parse(this.responseText);
+			console.log(data)
+			for (var i = 0; i < data.length; i++) {
+				var a1 = data[i]["license_plate"];
+				var a2 = "" + data[i]["block_start_time"];
+				var a3 = "" + data[i]["block_end_time"];
+				var all_ = "license_plate: " + a1 + ", block_start_time: " + a2 + ", block_end_time: " + a3;
+				list_.push(all_);
+				enter_time.push(a2);
+				var element = document.createElement("p");
+				element.innerHTML = all_;
+				document.body.appendChild(element);
+				// var dataUrl = "http://34.80.11.147:8000/license_time/" + a1 + "/" + time //7C6856
+			}
+		}
+
+	</script>
+
+	</h3>
+	</div>
+	</form>
+	
+</body>
+</html>

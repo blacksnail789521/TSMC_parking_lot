@@ -1,0 +1,65 @@
+
+<html>
+    <head>
+        <title>TSMC Parking System</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+        
+    <style>
+        input[type="submit"]{padding:8px 15px; background:#ccc; border:0 none;
+        cursor:pointer;
+        -webkit-border-radius: 5px;
+        border-radius: 5px; }
+        
+        input[type="text"]{padding:8px 280px; border:2px black solid;
+        cursor:pointer;
+        -webkit-border-radius: 5px;
+        border-radius: 5px; }
+        
+        .demo{
+        padding-top: 20px;
+        text-align: center
+        }
+    </style>
+    </head>
+    <body bgcolor="#FFFAFA">
+        <script>
+            var license_plate = location.search.replace(/[^\d]/,"");
+            license_plate = location.search.replace("?license_plate=","");
+            console.log(license_plate)
+            window.onload = function() {
+                var time = "960"
+                var dataUrl = "http://34.80.11.147:8000/license_time/" + license_plate + "/" + time //7C6856
+                var xhr = new XMLHttpRequest()
+                xhr.open('GET', dataUrl, true)
+                xhr.send()
+                xhr.onload = function(){
+                    var data = JSON.parse(this.responseText);
+                    console.log(data)
+                    if(data==null){
+                        alert('Your car is not in our parking lot! Return to the previous page...')
+                        history.go(-1)
+                    }
+                    else if(data['parking_number']==null){
+                        alert('Your car is not in our parking lot! Return to the previous page...')
+                        history.go(-1)
+                    }
+                    else{
+                        entry_time_camera = data["entry_time_camera"]
+                        var img = document.createElement("img")
+                        img.src = "http://34.80.11.147:8000/image/" + data['parking_number'] + "/" + entry_time_camera
+                        document.write("<h2>Your license plate is: "+license_plate+"</h2>");
+                        document.write("<h2>Location:"+data['parking_number']+"</h2>")
+                        document.write("<h2>Entry time:"+data['entry_time']+"</h2>")
+                        document.write("<h2>Entry time(camera):"+data['entry_time_camera']+"</h2>")
+                        document.write("<h2>Image of your car</h2><br>")
+                        document.body.appendChild(img)
+
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
